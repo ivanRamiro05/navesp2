@@ -148,6 +148,7 @@ var game = (function () {
             requestAnimFrame(anim);
         }
         anim();
+        
     }
 
     function sonido_fondo(){
