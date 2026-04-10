@@ -73,6 +73,7 @@ var game = (function () {
         restartButton,
         finalText,
         finalAnimationTick = 0,
+        backgroundSound,
         gameStarted = false;
 
     function loop() {
@@ -149,6 +150,18 @@ var game = (function () {
         anim();
     }
 
+    function sonido_fondo(){
+        if (!backgroundSound) {
+            backgroundSound = new Audio('Sonidos/freesound_community-retro-wave-style-track-59892.mp3');
+            backgroundSound.loop = true;
+            backgroundSound.volume = 0.4;
+        }
+
+        if (backgroundSound.paused) {
+            backgroundSound.play();
+        }
+    }
+
     function showOverlay(type) {
         overlay.classList.remove('hidden');
         if (type === 'start') {
@@ -169,6 +182,7 @@ var game = (function () {
     function startGame() {
         playerName = nameInput.value.trim() || 'Jugador';
         resetGameState();
+        sonido_fondo();
         hideOverlay();
         gameStarted = true;
     }
