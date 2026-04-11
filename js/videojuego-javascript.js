@@ -27,6 +27,7 @@ var game = (function () {
         playerShot,
         bgMain,
         bgBoss,
+        backgroundMusic,
         evilSpeed = 1,
         totalEvils = 7,
         playerLife = 3,
@@ -102,6 +103,11 @@ var game = (function () {
         playerKilledImage = new Image();
         playerKilledImage.src = 'images/bueno_muerto.png';
 
+        // Inicializar música de fondo
+        backgroundMusic = new Audio();
+        backgroundMusic.src = 'Sonidos/freesound_community-retro-wave-style-track-59892.mp3';
+        backgroundMusic.loop = true;
+        backgroundMusic.volume = 0.5;
     }
 
     function init() {
@@ -130,6 +136,8 @@ var game = (function () {
         addListener(document, 'keyup', keyUp);
         addListener(startButton, 'click', startGame);
         addListener(restartButton, 'click', function() {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
             showOverlay('start');
         });
         addListener(nameInput, 'keydown', function (e) {
@@ -171,6 +179,8 @@ var game = (function () {
         resetGameState();
         hideOverlay();
         gameStarted = true;
+        // Reproducir música de fondo
+        backgroundMusic.play();
     }
 
     function resetGameState() {
@@ -248,6 +258,8 @@ var game = (function () {
                 }, 500);
 
             } else {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
                 saveFinalScore();
                 youLoose = true;
                 finalText.innerHTML = 'GAME OVER, ' + playerName + '.';
@@ -402,6 +414,8 @@ var game = (function () {
             }, getRandomNumber(3000));
 
         } else {
+            backgroundMusic.pause();
+            backgroundMusic.currentTime = 0;
             setTimeout(function() {
                 saveFinalScore();
                 congratulations = true;
